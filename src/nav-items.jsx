@@ -1,4 +1,4 @@
-import { Home, UserPlus, LogIn } from "lucide-react";
+import { Home, Calendar, Settings } from "lucide-react";
 import Index from "./pages/Index.jsx";
 
 /**
@@ -12,15 +12,15 @@ export const navItems = [
     page: <Index />,
   },
   {
-    title: "Register",
-    to: "/register",
-    icon: <UserPlus className="h-4 w-4" />,
+    title: "Schedule",
+    to: "/schedule",
+    icon: <Calendar className="h-4 w-4" />,
     page: <Index />,
   },
   {
-    title: "Login",
-    to: "/login",
-    icon: <LogIn className="h-4 w-4" />,
+    title: "Settings",
+    to: "/settings",
+    icon: <Settings className="h-4 w-4" />,
     page: <Index />,
   },
 ];
