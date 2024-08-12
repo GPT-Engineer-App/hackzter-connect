@@ -3,6 +3,10 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "sonner"
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { app } from "../lib/firebase";
+
+const auth = getAuth(app);
 
 const Index = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -20,16 +24,21 @@ const Index = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isLogin) {
-      // Login logic
-      console.log('Login attempt:', formData);
-      toast.success('Login successful!');
-    } else {
-      // Registration logic
-      console.log('Registration attempt:', formData);
-      toast.success('Registration successful! Please check your email for verification.');
+    try {
+      if (isLogin) {
+        // Login logic
+        await signInWithEmailAndPassword(auth, formData.email, formData.password);
+        toast.success('Login successful!');
+      } else {
+        // Registration logic
+        await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        toast.success('Registration successful! Please check your email for verification.');
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error(error.message);
     }
   };
 
